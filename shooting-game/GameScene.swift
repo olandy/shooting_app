@@ -136,13 +136,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // 右のボタンが押されたら右に30px動かす。
             if touchNode == right_button {
                 // 右に動く動きを指定する。
-                let moveToRight = SKAction.moveTo(x: self.spaceship.position.x + 30, duration: 0.2)
+//                let moveToRight = SKAction.moveTo(x: self.spaceship.position.x + 30, duration: 0.2)
+                let moveToRight = SKAction.moveTo(x: self.spaceship.position.x + 100, duration: 0.2)
                 // 右に動かす。
                 spaceship.run(moveToRight)
                 // 左のボタンが押されたら左に30px動かす。
             }else if touchNode == left_button {
                 // 左に動く動きを指定する。
-                let moveToLeft = SKAction.moveTo(x: self.spaceship.position.x - 30, duration: 0.2)
+//                let moveToLeft = SKAction.moveTo(x: self.spaceship.position.x - 30, duration: 0.2)
+                let moveToLeft = SKAction.moveTo(x: self.spaceship.position.x - 100, duration: 0.2)
                 // 左に動く動きを指定する。
                 spaceship.run(moveToLeft)
                 // 発射ボタンが押された時、ミサイルを発射する。
@@ -151,6 +153,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let missile = SKSpriteNode(imageNamed: "missile")
                 // ミサイルの発射点を宇宙船がいるところにする。
                 missile.position = CGPoint(x: self.spaceship.position.x, y: self.spaceship.position.y + 50)
+                missile.physicsBody = SKPhysicsBody(circleOfRadius: missile.frame.height / 2)
+                        missile.physicsBody?.categoryBitMask = missileCategory
+                        missile.physicsBody?.contactTestBitMask = asteroidCategory
+                        missile.physicsBody?.collisionBitMask = 0
                 // ミサイルを出現させる。
                 addChild(missile)
                 // ミサイルが一番上まで行く動きを指定する。
@@ -169,7 +175,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        missile.physicsBody?.contactTestBitMask = asteroidCategory
 //        missile.physicsBody?.collisionBitMask = 0
 //        addChild(missile)
-//        
+//
 //        let moveToTop = SKAction.moveTo(y: frame.height + 10, duration: 0.3)
 //        let remove = SKAction.removeFromParent()
 //        missile.run(SKAction.sequence([moveToTop, remove]))
